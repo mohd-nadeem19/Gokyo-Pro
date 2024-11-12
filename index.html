@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gokyo-fse-pro</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+        module.exports = {
+            theme: {
+                extend: {
+                    backgroundImage: {
+                        'custom-gradient': 'linear-gradient(354deg, rgb(7, 7, 7) 19%, rgba(150, 149, 240, 0.03) 39%)',
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @layer components {
+            .nav {
+                position: relative;
+                display: inline-block;
+            }
+
+            .nav::after {
+                content: '';
+                background-color: #cf3140;
+                height: 2px;
+                width: 100%;
+                position: absolute;
+                left: 0;
+                bottom: -2px;
+                transition: all 0.3s;
+                transform: scaleX(0);
+            }
+
+            .nav:hover::after {
+                transform: scaleX(1);
+            }
+
+        }
+
+        .img {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zoom-image {
+            transition: transform 0.8s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .img:hover .zoom-image {
+            transform: scale(1.1);
+            opacity: .9;
+        }
+
+        /* image-zoomIn end*/
+
+        /* HOVER-BORDER START */
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item::before {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background-color: white;
+            bottom: 0;
+            left: 0;
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: none;
+        }
+
+        .nav-item::after {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: white;
+            top: 0;
+            right: 0;
+            transform-origin: bottom;
+            transform: scaleY(0);
+            transition: none;
+        }
+
+        .nav-item .border-top {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background-color: white;
+            top: 0;
+            left: 0;
+            transform-origin: right;
+            transform: scaleX(0);
+            transition: none;
+        }
+
+        .nav-item .border-left {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: white;
+            top: 0;
+            left: 0;
+            transform-origin: top;
+            transform: scaleY(0);
+            transition: none;
+        }
+
+        /* HOVER */
+        .nav-item:hover::before {
+            transform: scaleX(1);
+            transition: transform 0.25s ease;
+        }
+
+        .nav-item:hover::after {
+            transform: scaleY(1);
+            transition: transform 0.25s ease 0.25s;
+        }
+
+        .nav-item:hover .border-top {
+            transform: scaleX(1);
+            transition: transform 0.25s ease 0.5s;
+        }
+
+        .nav-item:hover .border-left {
+            transform: scaleY(1);
+            transition: transform 0.25s ease 0.75s;
+        }
+
+        /* HOVER-BORDER END */
+    </style>
+
+
+</head>
+
+<body>
+    <div id="bd-switcher" class="bg-[#000000] w-[100%] z-index-99999 h-[68px] p-[6px]">
+        <div id="dropdown"
+            class="open p-[10px] bg-[#222325] text-[#dfdfdf] inline-block ml-[40px] m-[6px] cursor-pointer w-[265px] relative text-[16px] font-sans-serif">
+            Gokyo FSE Pro
+        </div>
+        <!-- dropdown end -->
+
+        <div id="responsive" class="inline-block ml-[20px]">
+            <a title="Desktop" rel="res-desktop" href="#"
+                class="current text-[#687c90] hover:text-[#ffffff] mr-[5px] p-[2px]">
+                <i class="fa-solid fa-desktop text-[1.33333333em]"></i>
+            </a>
+            <a title="Tablet Landscape (1024x768)" rel="resp-tablet-landscape" href="#"
+                class="current text-[#687c90] hover:text-[#ffffff] mr-[5px] p-[2px]">
+                <i class="fa-solid fa-tablet-screen-button fa-rotate-270 fa-lg"></i>
+            </a>
+            <a title="Tablet Portrait (768x1024)" rel="resp-tablet-portrait" href="#"
+                class="current text-[#687c90] hover:text-[#ffffff] mr-[5px] p-[2px]">
+                <i class="fa-solid fa-tablet-screen-button fa-lg"></i>
+            </a>
+            <a title="Mobile Landscape (480x320)" rel="resp-mobile-landscape" href="#"
+                class="current text-[#687c90] hover:text-[#ffffff] mr-[5px] p-[2px]">
+                <i class="fa-solid fa-mobile-screen-button fa-rotate-270 fa-lg"></i>
+            </a>
+            <a title="Mobile Landscape (480x320)" rel="resp-mobile-landscape" href="#"
+                class="current text-[#687c90] hover:text-[#ffffff] mr-[5px] p-[2px]">
+                <i class="fa-solid fa-mobile-screen-button fa-lg"></i>
+            </a>
+        </div>
+        <!-- responsive end -->
+
+        <div id="button" class="float-right">
+            <a href="https://olivethemes.com/wordpress-themes/    gokyo-fse-pro" target="new"
+                class="btn btn-download text-[#fff]  inline-block cursor-pointer font-Roboto,sans-serif text-[15px] font-bold pr-[15px] pl-[15px] pt-[12px] pb-[12px] bg-[#246f45] hover:bg-orange-500">
+                <i class="fa fa-download" aria-hidden="true"></i> Buy Now
+            </a>
+            <a href="https://demo.olivethemes.com/gokyo-fse-pro"
+                class="btn btn-close text-[#ffffff] pr-[15px] pl-[15px] pt-[12px] pb-[12px] hover:bg-orange-500">
+                <span class="fa-stack relative inline-block w-[2em] h-[2em] leading-[2em]"><i
+                        class="fa-regular fa-circle text-[2em] absolute left-0 w-full items-center font-medium"></i>
+                    <i class="fa fa-close fa-stack-1x absolute left-0 w-full items-center"></i></span></a>
+        </div>
+        <!-- button end-->
+    </div>
+
+
+
+    <header class="wp-block-template-par ">
+        <div class="is-layout-container pt-[30px] pl-[30px] pb-[30px] box-border">
+            <div class="is-horizontal max-w-[1300px] flex flex-wrap justify-between items-center gap-[10px]">
+                <div class="is-content p-0 m-0 flex flex-nowrap gap-[15px] justify-center items-center">
+                    <img loading="lazy"
+                        src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/iocn-4.png"
+                        class="custom-logo w-[40px] h-[40px]" alt="Gokyo Pro" decoding="async">
+                    <h1 class="text-[2rem] font-bold">Gokyo Pro</h1>
+                </div>
+
+                <div class="is-layout-flex m-0 flex flex-wrap items-center gap-[2rem]">
+                    <div class="is-layout-flex-6 gap-[25px] m-0 flex flex-wrap items-center">
+                        <img decoding="async" loading="lazy"
+                            src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/themes/gokyo-fse-pro/assets/images/email.png"
+                            alt="" class="wp-image-471 h-[38px] w-[38px] gap-[25px]">
+                        <div class="is-vertical">
+                            <p class="font-bold text-[18px] m-0">Email</p>
+                            <p class="text-[#707376] text-[16px] tracking-[2px] font-bold">info@example.com</p>
+                            </p>
+                        </div>
+                        <div class="is-layout-flex-9 flex flex-wrap items-center gap-[25px] mr-20">
+                            <img decoding="async"
+                                src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/themes/gokyo-fse-pro/assets/images/call-icon.png"
+                                alt="" class="wp-image-128 w-[36px] h-[36px] m-0">
+                            <div class="is-vertical8 flex flex-col items-start flex-wrap m-0 gap-0 ">
+                                <p class="font-bold text-[18px]">Quick Contact</p>
+                                <p class="text-[#707376] text-[16px] font-bold">+875 565 5758</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div
+            class="is-layout-container bg-[#081da3]  pt-[18px] pb-[18px] pr-[30px] pl-[30px] transition-all duration-500 ease-in-out    md:transition-colors md:duration-10000 box-border">
+
+            <div
+                class="is-horizontal text-white max-w-[1300px] flex flex-nowrap justify-between items-center gap-[10px]">
+                <nav class="flex ">
+                    <div class="flex space-x-[20px] font-bold text-[18px]  cursor-pointer">
+                        <div class="nav-item hover:underline decoration-1 p-[6px]">Home <div class="border-top"></div>
+                            <div class="border-left"></div>
+                        </div>
+
+                        <div class="nav-item hover:underline decoration-1 p-[6px]">About Us <div class="border-top">
+                            </div>
+                            <div class="border-left"></div>
+                        </div>
+
+                        <div class="nav-item hover:underline decoration-1 p-[6px]">Services <div class="border-top">
+                            </div>
+                            <div class="border-left"></div>
+                        </div>
+
+                        <div class="nav-item hover:underline decoration-1 p-[6px]">Portfolio <div class="border-top">
+                            </div>
+                            <div class="border-left"></div>
+                        </div>
+
+                        <div class="nav-item hover:underline decoration-1 p-[6px]">Team <div class="border-top"></div>
+                            <div class="border-left"></div>
+                        </div>
+
+                        <div class="nav-item hover:underline decoration-1 p-[6px]">Contact Us <div class="border-top">
+                            </div>
+                            <div class="border-left"></div>
+                        </div>
+
+                        <div class="nav-item hover:underline decoration-1 p-[6px]">Blog <div class="border-top"></div>
+                            <div class="border-left"></div>
+                        </div>
+
+                    </div>
+                </nav>
+
+                <div class="is-layout-flex-16 flex flex-wrap items-center gap-[10px] m-0 box-border">
+                    <p class="font-bold text-[#ffffff] m-0 text-[18px]">Follow Us :</p>
+                    <ul
+                        class="is-content-justifycation flex flex-wrap justify-center items-center gap-[15px] text-[16px]">
+                        <li class="wp-social-link wp-social-link-facebook wp-block-social-link"><a href="https://#"
+                                class="wp-block-social-link-anchor text-white"><svg class="h-[24px] w-[24px] text-white"
+                                    viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true" focusable="false" style="fill: white">
+                                    <path
+                                        d="M12 2C6.5 2 2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12c0-5.5-4.5-10-10-10z">
+                                    </path>
+                                </svg><span class="wp-block-social-link-label screen-reader-text"></span></a></li>
+                        <li style="color: #ffffff; " class="wp-social-link wp-social-link-youtube wp-block-social-link">
+                            <a href="https://#" class="wp-block-social-link-anchor"><svg width="24" height="24"
+                                    viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true" focusable="false" style="fill: white;">
+                                    <path
+                                        d="M21.8,8.001c0,0-0.195-1.378-0.795-1.985c-0.76-0.797-1.613-0.801-2.004-0.847c-2.799-0.202-6.997-0.202-6.997-0.202 h-0.009c0,0-4.198,0-6.997,0.202C4.608,5.216,3.756,5.22,2.995,6.016C2.395,6.623,2.2,8.001,2.2,8.001S2,9.62,2,11.238v1.517 c0,1.618,0.2,3.237,0.2,3.237s0.195,1.378,0.795,1.985c0.761,0.797,1.76,0.771,2.205,0.855c1.6,0.153,6.8,0.201,6.8,0.201 s4.203-0.006,7.001-0.209c0.391-0.047,1.243-0.051,2.004-0.847c0.6-0.607,0.795-1.985,0.795-1.985s0.2-1.618,0.2-3.237v-1.517 C22,9.62,21.8,8.001,21.8,8.001z M9.935,14.594l-0.001-5.62l5.404,2.82L9.935,14.594z">
+                                    </path>
+                                </svg><span class="wp-block-social-link-label screen-reader-text"></span></a>
+                        </li>
+                        <li style="color: #ffffff; " class="wp-social-link wp-social-link-twitter wp-block-social-link">
+                            <a href="https://#" class="wp-block-social-link-anchor"><svg width="24" height="24"
+                                    viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true" focusable="false" style="fill: white;">
+                                    <path
+                                        d="M22.23,5.924c-0.736,0.326-1.527,0.547-2.357,0.646c0.847-0.508,1.498-1.312,1.804-2.27 c-0.793,0.47-1.671,0.812-2.606,0.996C18.324,4.498,17.257,4,16.077,4c-2.266,0-4.103,1.837-4.103,4.103 c0,0.322,0.036,0.635,0.106,0.935C8.67,8.867,5.647,7.234,3.623,4.751C3.27,5.357,3.067,6.062,3.067,6.814 c0,1.424,0.724,2.679,1.825,3.415c-0.673-0.021-1.305-0.206-1.859-0.513c0,0.017,0,0.034,0,0.052c0,1.988,1.414,3.647,3.292,4.023 c-0.344,0.094-0.707,0.144-1.081,0.144c-0.264,0-0.521-0.026-0.772-0.074c0.522,1.63,2.038,2.816,3.833,2.85 c-1.404,1.1-3.174,1.756-5.096,1.756c-0.331,0-0.658-0.019-0.979-0.057c1.816,1.164,3.973,1.843,6.29,1.843 c7.547,0,11.675-6.252,11.675-11.675c0-0.178-0.004-0.355-0.012-0.531C20.985,7.47,21.68,6.747,22.23,5.924z">
+                                    </path>
+                                </svg><span class="wp-block-social-link-label screen-reader-text"></span></a>
+                        </li>
+                        <li style="color: #ffffff; "
+                            class="wp-social-link wp-social-link-instagram wp-block-social-link"><a href="https://#"
+                                class="wp-block-social-link-anchor"><svg width="24" height="24" viewBox="0 0 24 24"
+                                    version="1.1" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                                    focusable="false" style="fill: white;">
+                                    <path
+                                        d="M12,4.622c2.403,0,2.688,0.009,3.637,0.052c0.877,0.04,1.354,0.187,1.671,0.31c0.42,0.163,0.72,0.358,1.035,0.673 c0.315,0.315,0.51,0.615,0.673,1.035c0.123,0.317,0.27,0.794,0.31,1.671c0.043,0.949,0.052,1.234,0.052,3.637 s-0.009,2.688-0.052,3.637c-0.04,0.877-0.187,1.354-0.31,1.671c-0.163,0.42-0.358,0.72-0.673,1.035 c-0.315,0.315-0.615,0.51-1.035,0.673c-0.317,0.123-0.794,0.27-1.671,0.31c-0.949,0.043-1.233,0.052-3.637,0.052 s-2.688-0.009-3.637-0.052c-0.877-0.04-1.354-0.187-1.671-0.31c-0.42-0.163-0.72-0.358-1.035-0.673 c-0.315-0.315-0.51-0.615-0.673-1.035c-0.123-0.317-0.27-0.794-0.31-1.671C4.631,14.688,4.622,14.403,4.622,12 s0.009-2.688,0.052-3.637c0.04-0.877,0.187-1.354,0.31-1.671c0.163-0.42,0.358-0.72,0.673-1.035 c0.315-0.315,0.615-0.51,1.035-0.673c0.317-0.123,0.794-0.27,1.671-0.31C9.312,4.631,9.597,4.622,12,4.622 M12,3 C9.556,3,9.249,3.01,8.289,3.054C7.331,3.098,6.677,3.25,6.105,3.472C5.513,3.702,5.011,4.01,4.511,4.511 c-0.5,0.5-0.808,1.002-1.038,1.594C3.25,6.677,3.098,7.331,3.054,8.289C3.01,9.249,3,9.556,3,12c0,2.444,0.01,2.751,0.054,3.711 c0.044,0.958,0.196,1.612,0.418,2.185c0.23,0.592,0.538,1.094,1.038,1.594c0.5,0.5,1.002,0.808,1.594,1.038 c0.572,0.222,1.227,0.375,2.185,0.418C9.249,20.99,9.556,21,12,21s2.751-0.01,3.711-0.054c0.958-0.044,1.612-0.196,2.185-0.418 c0.592-0.23,1.094-0.538,1.594-1.038c0.5-0.5,0.808-1.002,1.038-1.594c0.222-0.572,0.375-1.227,0.418-2.185 C20.99,14.751,21,14.444,21,12s-0.01-2.751-0.054-3.711c-0.044-0.958-0.196-1.612-0.418-2.185c-0.23-0.592-0.538-1.094-1.038-1.594 c-0.5-0.5-1.002-0.808-1.594-1.038c-0.572-0.222-1.227-0.375-2.185-0.418C14.751,3.01,14.444,3,12,3L12,3z M12,7.378 c-2.552,0-4.622,2.069-4.622,4.622S9.448,16.622,12,16.622s4.622-2.069,4.622-4.622S14.552,7.378,12,7.378z M12,15 c-1.657,0-3-1.343-3-3s1.343-3,3-3s3,1.343,3,3S13.657,15,12,15z M16.804,6.116c-0.596,0-1.08,0.484-1.08,1.08 s0.484,1.08,1.08,1.08c0.596,0,1.08-0.484,1.08-1.08S17.401,6.116,16.804,6.116z">
+                                    </path>
+                                </svg><span class="wp-block-social-link-label screen-reader-text"></span></a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- ITEMS-LIST END -->
+        </div>
+
+    </header>
+    <!-- header end -->
+
+
+
+    <main class="is-layout-flow-link pt-[0] pb-[0] mt-[0] box-border">
+        <div class="is-layout-flow mt-[0]">
+            <div class="is-layout-constrained">
+                <div class="is-layout-flow-196 mt-[0] mb-[0] p-[0]">
+                    <div class="wp-block-olive flex flex-nowrap relative w-full overflow-hidden">
+                        <div class="swiper-wrapper relative w-full h-full z-10 flex transition-transform box-content">
+                            <div class="swiper-slide h-full w-full relative transform flex-shrink-0">
+                                <div
+                                    class="wp-block-cover-image min-h-[748px] pt-[12vw] pb-[12vw] pr-[13px] pl-[13px] flex       justify-center items-center relative box-border">
+                                    <img decoding="async"
+                                        class="wp-block-cover__image-background wp-image-115 absolute top-0 bottom-0 left-0 right-0 m-0 p-0 h-full w-full"
+                                        alt=""
+                                        src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/themes/gokyo-fse/assets/images/home-banner.jpg">
+                                    <div class="wp-block-cover-inner w-full text-[#fff] z-10">
+                                        <div class="is-layout-constrained pl-[10%]">
+                                            <div class="is-layout-flow-25 p-0">
+                                                <div class="is-layout-flow-23 pt-[20px] pb-[20px]">
+                                                    <h3
+                                                        class="mb-[20px] font-sans-serif font-semibold leading-[1.75]  text-2xl">
+                                                        Finance & consulting company</h3>
+                                                    <h2 class="font-sans-serif font-semibold text-7xl">We Craft Unique
+                                                    </h2>
+                                                    <h2 class="mt-3 font-sans-serif font-semibold text-7xl">Business
+                                                        Ideas</h2>
+                                                </div>
+                                                <div class="is-layout-constrained pt-[40px]">
+                                                    <div class="wp-block-olive">
+                                                        <div
+                                                            class="wp-block-olive-aboutUs inline-block cursor-pointer mr-[5px] ml-[5px]">
+                                                            <a
+                                                                class="olive-blocks-button-link wp-block-button__link m-0 flex flex-row-reverse gap-[13px] items-center justify-center mr-[10px] bg-[#2a3bc7] py-2 px-5"><i
+                                                                    class="fa-solid fa-right-long inline-block"></i><span
+                                                                    class="leading-[1.75] text-xl font-normal ">About
+                                                                    Us</span></a>
+                                                        </div>
+                                                        <div
+                                                            class="wp-block-olive-Service inline-block cursor-pointer mr-[5px] ml-[5px]">
+                                                            <a
+                                                                class="olive-blocks-button-link wp-block-button__link m-0 flex flex-row-reverse gap-[13px] items-center justify-center mr-[10px] bg-white text-black py-2 px-7"><i
+                                                                    class="fa-solid fa-right-long inline-block"></i><span
+                                                                    class="leading-[1.75] text-xl font-normal ">Service</span></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="is-layouout-constrained pt-[80px] pb-[80px] pl-[0] pr-[0] box-border bg-[#ffffff] ">
+                        <div
+                            class="wp-block-olive-block-service max-w-[1300px] flex justify-center ml-auto mr-auto p-[20px] ">
+                            <div class="olive-block-service-block max-w-[1023px] grid grid-cols-3 gap-[35px]">
+                                <div
+                                    class="wp-block-profitable p-[40px] shadow-2xl text-[#fff] grid grid-cols-1 grid-rows-auto content-start">
+                                    <div
+                                        class="wp-block-olive-icon flex justify-center mb-[10px] mt-[0] ml-[0] mr-[0] ">
+                                        <a
+                                            class="olive-blocks-icon-wrapper flex justify-center items-center text-[#2a3cb7] "><i
+                                                class="fa-solid fa-scale-balanced font-bold text-[40px] hover:text-red-600 cursor-pointer"></i></a>
+                                    </div>
+                                    <div
+                                        class="has-text-h3 text-center font-sans-serif font-bold leading-[1.75] text-2xl mb-[10px] mt-[0] ml-[0] mr-[0]">
+                                        <a href="#" class="text-black ">Profitable Marketing</a>
+                                    </div>
+                                    <p
+                                        class="has-text-align-center olive-blocks-admin-info-box-block-content  text-center mb-[10px] mt-[0] ml-[0] mr-[0] leading-[1.25] text-xl font-normal  text-[#707376]">
+                                        We develop digital strategies, products and services appreciated by clients.</p>
+                                    <div
+                                        class="view-more flex justify-center items-center flex-wrap flex-row max-w-full">
+                                        <div
+                                            class="wp-block-olive-block-button cursor-pointer inline-block mr-[5px] ml-[5px] mt-[0] mb-[0]">
+                                            <a class="olive-blocks-button-link wp-block-button__link mt-[10px] text-[#2a3cb7] flex items-center justify-center flex-row-reverse gap-[20px]
+                                                "><i class="fa-solid fa-arrow-right"></i><span
+                                                    class="font-medium text-[18px]"><strong>View
+                                                        More</strong></span></a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div
+                                    class="wp-block-profitable p-[40px] shadow-2xl text-[#fff] grid grid-cols-1 grid-rows-auto content-start">
+                                    <div
+                                        class="wp-block-olive-icon flex justify-center mb-[10px] mt-[0] ml-[0] mr-[0] ">
+                                        <a
+                                            class="olive-blocks-icon-wrapper flex justify-center items-center text-[#2a3cb7] "><i
+                                                class="fa-solid fa-bullhorn font-bold text-[40px] hover:text-red-600 cursor-pointer"></i></a>
+                                    </div>
+                                    <div
+                                        class="has-text-h3 text-center font-sans-serif font-bold leading-[1.75] text-2xl mb-[10px] mt-[0] ml-[0] mr-[0]">
+                                        <a href="#" class="text-black ">SEO Specialists</a>
+                                    </div>
+                                    <p
+                                        class="has-text-align-center olive-blocks-admin-info-box-block-content  text-center mb-[10px] mt-[0] ml-[0] mr-[0] leading-[1.25] text-xl font-normal  text-[#707376]">
+                                        We develop digital strategies, products and services appreciated by clients.</p>
+                                    <div
+                                        class="view-more flex justify-center items-center flex-wrap flex-row max-w-full">
+                                        <div
+                                            class="wp-block-olive-block-button cursor-pointer inline-block mr-[5px] ml-[5px] mt-[0] mb-[0]">
+                                            <a class="olive-blocks-button-link wp-block-button__link mt-[10px] text-[#2a3cb7] flex items-center justify-center flex-row-reverse gap-[20px]
+                                                "><i class="fa-solid fa-arrow-right"></i><span
+                                                    class="font-medium text-[18px]"><strong>View
+                                                        More</strong></span></a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div
+                                    class="wp-block-profitable p-[40px] shadow-2xl text-[#fff] grid grid-cols-1 grid-rows-auto content-start">
+                                    <div
+                                        class="wp-block-olive-icon flex justify-center mb-[10px] mt-[0] ml-[0] mr-[0] ">
+                                        <a
+                                            class="olive-blocks-icon-wrapper flex justify-center items-center text-[#2a3cb7] "><i
+                                                class="fa-solid fa-certificate font-bold text-[40px] hover:text-red-600 cursor-pointer"></i></a>
+                                    </div>
+                                    <div
+                                        class="has-text-h3 text-center font-sans-serif font-bold leading-[1.75] text-2xl mb-[10px] mt-[0] ml-[0] mr-[0]">
+                                        <a href="#" class="text-black ">SEO Specialists</a>
+                                    </div>
+                                    <p
+                                        class="has-text-align-center olive-blocks-admin-info-box-block-content  text-center mb-[10px] mt-[0] ml-[0] mr-[0] leading-[1.25] text-xl font-normal  text-[#707376]">
+                                        We develop digital strategies, products and services appreciated by clients.</p>
+                                    <div
+                                        class="view-more flex justify-center items-center flex-wrap flex-row max-w-full">
+                                        <div
+                                            class="wp-block-olive-block-button cursor-pointer inline-block mr-[5px] ml-[5px] mt-[0] mb-[0]">
+                                            <a class="olive-blocks-button-link wp-block-button__link mt-[10px] text-[#2a3cb7] flex items-center justify-center flex-row-reverse gap-[20px]
+                                                "><i class="fa-solid fa-arrow-right"></i><span
+                                                    class="font-medium text-[18px]"><strong>View
+                                                        More</strong></span></a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- CARD-DIV -->
+
+                    <div class="main-container-1 pt-[100px] pb-[100px] pr[30px] pl-[30px] bg-[#f9f9f9] box-border">
+                        <div class="main-container-38 pb-[30px] max-w-[1300px]">
+                            <div class="main-container-30 p-0 flex flex-nowrap gap-0 justify-start">
+                                <div class="main-container-29 pb-[1rem] box-border">
+                                    <div
+                                        class="main-container-28 ma-w-[1300px] flex flex-nowrap justify-start gap-[10px]">
+                                        <p class="font-bold text-2xl text-[#cf3140] text-left"><span>WHAT WE DO</span>
+                                        </p>
+                                    </div>
+                                    <h2 class="leading-[1.3] capitalize text-5xl font-bold text-left">The best solutions
+                                        for your <span class="block">business</span></h2>
+                                </div>
+                            </div>
+                            <div class="main-container-2 box-border">
+                                <div
+                                    class="main-container-36 max-w-[1300px] flex flex-nowrap items-center gap-[8rem] items-stretch">
+                                    <div class="main-container-60 basis-[40%] mt-4 min-w-0">
+                                        <p class="main-container-para1 font-[600] text-lg text-[#777] text-left">We do
+                                            our best to implement your ideas into the project to make it successful and
+                                            profitable.The choices you make define your achievements.</p>
+                                        <div
+                                            class="main-container-32 pt-0 pl-0 flex flex-wrap items-center gap-[2rem] mt-[2rem]">
+                                            <img decoding="async" loading="lazy"
+                                                src="https://demo.olivethemes.com/arc-pro/wp-content/uploads/sites/17/2022/10/faq-img.jpg"
+                                                alt="" class="wp-image-186 h-[71px] w-[71px] rounded-[100%]">
+                                            <div class="main-container-31 m-0 box-border">
+                                                <h3
+                                                    class="font-semibold text-3xl font-sans-serif mt-[0] mb-[0.625rem] leading-[1.75]">
+                                                    Parker Jimenez</h3>
+                                                <p class="text-[#2a3cb7] font-[16px]">Founder/CEO</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="main-container-30 basis-[20%] mt-4">
+                                        <p class="main-container-para2 font-[600] text-lg text-[#777] text-left">et new
+                                            business priorities, outline plans for growth, determine a product roadmap
+                                            or plan your decisions we can handle it.</p>
+                                    </div>
+                                    <div class="main-container-30 basis-[20%] mt-4">
+                                        <p class="main-container-para2 font-[600] text-lg text-[#777] text-left">
+                                            Digitalizing trends and disruptive technologies are giving companies the
+                                            ability to transform their business models.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 3DIVS END -->
+
+
+                    </div>
+                    <div
+                        class="image-containers box-border bg-[#eee] max-w-[1300px] flex justify-center items-center gap-[10px] relative">
+                        <div class="img relative">
+                            <img decoding="async" loading="lazy"
+                                class="wp-block-cover__image-background wp-image-257 h-[300px]  w-[400px] object-cover zoom-image"
+                                alt=""
+                                src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-4-840x473-1.jpeg"
+                                data-object-fit="cover"
+                                srcset="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-4-840x473-1.jpeg 840w, https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-4-840x473-1-300x169.jpeg 300w, https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-4-840x473-1-768x432.jpeg 768w"
+                                sizes="(max-width: 840px) 100vw, 840px">
+                            <div class="absolute inset-0 bottom-0 left-0 pt-48 pl-8 text-white bg-black bg-opacity-50">
+                                <p class="font-semibold text-red-600 text-lg">IT Company</p>
+                                <h3 class="font-bold text-2xl cursor-pointer">
+                                    <span class="nav inline-block hover:text-red-600">High-Quality</span>
+                                    <span class="nav block w-[100px] hover:text-red-600">Products</span>
+                                </h3>
+                            </div>
+
+                        </div>
+                        <div class="img relative">
+                            <img decoding="async" loading="lazy"
+                                class="wp-block-cover__image-background wp-image-258 h-[300px] w-[400px] object-cover zoom-image"
+                                alt=""
+                                src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-5-840x473-1.jpeg"
+                                style="object-position:27% 51%" data-object-fit="cover" data-object-position="27% 51%"
+                                srcset="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-5-840x473-1.jpeg 840w, https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-5-840x473-1-300x169.jpeg 300w, https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-5-840x473-1-768x432.jpeg 768w"
+                                sizes="(max-width: 840px) 100vw, 840px">
+                            <div class="absolute inset-0 bottom-0 left-0 pt-48 pl-8 text-white bg-black bg-opacity-50">
+                                <p class="font-semibold text-red-600 text-lg">Software</p>
+                                <h3 class="font-bold text-2xl cursor-pointer">
+                                    <span class="nav inline-block hover:text-red-600">Brand Development</span>
+                                    <span class="nav block w-[100px] hover:text-red-600">Strategies</span>
+                                    <!-- width दिया गया -->
+                                </h3>
+                            </div>
+
+                        </div>
+                        <div class="img relative">
+                            <img decoding="async" loading="lazy"
+                                class="wp-block-cover__image-background wp-image-259 h-[300px] w-[400px] object-cover zoom-image"
+                                alt=""
+                                src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-6-840x473-1.jpeg"
+                                style="object-position:21% 51%" data-object-fit="cover" data-object-position="21% 51%"
+                                srcset="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-6-840x473-1.jpeg 840w, https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-6-840x473-1-300x169.jpeg 300w, https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-6-840x473-1-768x432.jpeg 768w"
+                                sizes="(max-width: 840px) 100vw, 840px">
+                            <div class="absolute inset-0 bottom-0 left-0 pt-48 pl-8 text-white bg-black bg-opacity-50">
+                                <p class="font-semibold text-red-600 text-lg">Business Strategy</p>
+                                <h3 class="font-bold text-2xl cursor-pointer">
+                                    <span class="nav inline-block hover:text-red-600">You Business</span>
+                                    <span class="nav block w-[100px] hover:text-red-600">Consulting</span>
+                                    <!-- width दिया गया -->
+                                </h3>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- 3IMAGES CONTAINER END -->
+
+                    <div class="flex items-center justify-center m-10">
+                        <button
+                            class="bg-[#2a3cb7] flex items-center text-white px-6 py-2 gap-[10px] hover:bg-[#cf3140]">
+                            <span class="font-medium pb-[6px] text-xl">View More</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <!-- VIEW-BUTTOM END -->
+
+                    <div class="bg-[#221f3c] box-border pt-[90px] pb-[90px] pl-[50px] pr-[50px] flex max-w-[1300px]">
+
+                        <div class="mb-12  flex justify-center items-end relative box-border bg-custom-gradient w-auto">
+                            <img decoding="async"
+                                class="wp-block-cover__image-background wp-image-110 top-0 left-0 right-0 bottom-0 m-0 p-0 w-[1000px] h-[550px] opacity-90 mb-10"
+                                alt=""
+                                src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/themes/gokyo-fse/assets/images/hero.jpg"
+                                style="object-position:31% 47%" data-object-fit="cover" data-object-position="31% 47%">
+                            <div class="25YEARS absolute">
+                                <p class="font-[900] pb-20 text-[#ffffff] text-5xl">25 + Years</p>
+                            </div>
+                        </div>
+                        <!-- LEFT-IMAGE-END -->
+                        <div class="pt-40 pr-30 pl-30 pb-40 box-border">
+                            <div class="flex items-center flex-wrap pl-14">
+                                <p class="font-semibold text-2xl  text-[#cf3140] whitespace-nowrap">About Our Company
+                                </p>
+                            </div>
+                            <h2 class="text-[#ffffff] max-w-[950px] mt-4 font-bold text-5xl leading-[1.3] pl-12">
+                                Creative vision and digital experience</h2>
+                            <p class="text-[#ffffff] max-w-[750px] pl-14 mt-4">For those who love videos, animation and
+                                motion graphics, we have come up with a new cool project!</p>
+                            <ul class="text-[#ffffff] pl-14 mt-6">
+                                <li><i class="fa-solid fa-check font-bold text-lg text-[#2a3cb7]"></i><span
+                                        class="pl-2 font-semibold gap-2">Unlimited sessions</span></li>
+                                <li><i class="fa-solid fa-check font-bold text-lg text-[#2a3cb7]"></i><span
+                                        class="pl-2 font-semibold">Amazing photo & video galleries</span></li>
+                                <li><i class="fa-solid fa-check font text-lg text-[#2a3cb7]"></i><span
+                                        class="pl-2 font-semibold">Huge color scheme selection</span></li>
+                            </ul>
+
+                            <div class=" ml-14 mt-10">
+                                <button
+                                    class=" text-white bg-[#2a3cb7] hover:bg-[#cf3140] px-8 py-2 flex items-center justify-center gap-[10px]"><span
+                                        class="pb-1">Explore More</span><i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="container-57 pt-[80px] pb-[80px] pl-[30px] pb-[30px] box-border bg-[#eee]">
+                        <div class="flex flex-col justify-center items-center flex-nowrap ">
+                            <h2 class="text-[#cf3140] font-bold text-xl">Our Best Services</h2>
+                            <p class="mt-2 text-5xl font-bold text-center max-w-[750px] leading-[1.3] capitalize">
+                                Business strategies and top performance ideas</p>
+                        </div>
+
+                        <div
+                            class="grid grid-cols-3 grid-rows-2  justify-center items-center max-w-auto px-6 pl-[2px] gap-[2rem] mt-10">
+                            <!-- CARD-1 -->
+                            <div class="p-[50px] bg-[#ffffff]">
+                                <div class="flex flex-wrap align-center max-w-[750px]">
+                                    <img decoding="async" loading="lazy"
+                                        src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/themes/gokyo-fse/assets/images/service-4.png"
+                                        alt="" class="wp-image-364" style="border-radius:0px" width="50" height="50">
+                                </div>
+                                <div class="max-w-[750px] p-0 mt-[10px]">
+                                    <h3 class="nav hover:text-red-600 cursor-pointer mt-[10px] font-bold text-2xl">
+                                        Creative Solutions</h3>
+                                    <p
+                                        class="text-[#707376] font-sans-serif  mt-[16px] leading-[30px] text-lg font-normal">
+                                        We develop digital strategies, products and services appreciated by clients.</p>
+                                </div>
+                                <div class="mt-[15px]">
+                                    <strong
+                                        class=" text-[#221f3c] uppercase hover:text-[#cf3140] cursor-pointer font-bold">View
+                                        More</strong>
+                                </div>
+                            </div>
+
+                            <!-- CARD-2 -->
+                            <div class="p-[50px] bg-[#ffffff]">
+                                <div class="flex flex-wrap align-center max-w-[750px]">
+                                    <img decoding="async" loading="lazy"
+                                        src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/themes/gokyo-fse/assets/images/service-5.png"
+                                        alt="" class="wp-image-365" style="border-radius:0px" width="50" height="50">
+                                </div>
+                                <div class="max-w-[750px] p-0 mt-[10px]">
+                                    <h3 class="nav hover:text-red-600 cursor-pointer mt-[10px] font-bold text-2xl">
+                                        Financial Strategy</h3>
+                                    <p
+                                        class="text-[#707376] font-sans-serif  mt-[16px] leading-[30px] text-lg font-normal">
+                                        We develop digital strategies, products and services appreciated by clients.</p>
+                                </div>
+                                <div class="mt-[15px]">
+                                    <strong
+                                        class=" text-[#221f3c] uppercase hover:text-[#cf3140] cursor-pointer font-bold">View
+                                        More</strong>
+                                </div>
+                            </div>
+
+                            <!-- CARD-3 -->
+                            <div class="p-[50px] bg-[#ffffff]">
+                                <div class="flex flex-wrap align-center max-w-[750px]">
+                                    <img decoding="async" loading="lazy"
+                                        src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/themes/gokyo-fse/assets/images/service-6.png"
+                                        alt="" class="wp-image-366" style="border-radius:0px" width="50" height="50">
+                                </div>
+                                <div class="max-w-[750px] p-0 mt-[10px]">
+                                    <h3 class="nav hover:text-red-600 cursor-pointer mt-[10px] font-bold text-2xl">
+                                        Marketing Strategy</h3>
+                                    <p
+                                        class="text-[#707376] font-sans-serif  mt-[16px] leading-[30px] text-lg font-normal">
+                                        We develop digital strategies, products and services appreciated by clients.</p>
+                                </div>
+                                <div class="mt-[15px]">
+                                    <strong
+                                        class=" text-[#221f3c] uppercase hover:text-[#cf3140] cursor-pointer font-bold">View
+                                        More</strong>
+                                </div>
+                            </div>
+
+                            <!-- CARD-4 -->
+                            <div class="p-[50px] bg-[#ffffff]">
+                                <div class="flex flex-wrap align-center max-w-[750px]">
+                                    <img decoding="async" loading="lazy"
+                                        src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/themes/gokyo-fse/assets/images/service-7.png"
+                                        alt="" class="wp-image-367" style="border-radius:0px" width="50" height="50">
+                                </div>
+                                <div class="max-w-[750px] p-0 mt-[10px]">
+                                    <h3 class="nav hover:text-red-600 cursor-pointer mt-[10px] font-bold text-2xl">
+                                        Keyword Research</h3>
+                                    <p
+                                        class="text-[#707376] font-sans-serif  mt-[16px] leading-[30px] text-lg font-normal">
+                                        We develop digital strategies, products and services appreciated by clients.</p>
+                                </div>
+                                <div class="mt-[15px]">
+                                    <strong
+                                        class=" text-[#221f3c] uppercase hover:text-[#cf3140] cursor-pointer font-bold">View
+                                        More</strong>
+                                </div>
+                            </div>
+
+                            <!-- CARD-5 -->
+                            <div class="p-[50px] bg-[#ffffff]">
+                                <div class="flex flex-wrap align-center max-w-[750px]">
+                                    <img decoding="async" loading="lazy"
+                                        src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/themes/gokyo-fse/assets/images/service-8.png"
+                                        alt="" class="wp-image-368" style="border-radius:0px" width="50" height="50">
+                                </div>
+                                <div class="max-w-[750px] p-0 mt-[10px]">
+                                    <h3 class="nav hover:text-red-600 cursor-pointer mt-[10px] font-bold text-2xl">Web
+                                        Development</h3>
+                                    <p
+                                        class="text-[#707376] font-sans-serif  mt-[16px] leading-[30px] text-lg font-normal">
+                                        We develop digital strategies, products and services appreciated by clients.</p>
+                                </div>
+                                <div class="mt-[15px]">
+                                    <strong
+                                        class=" text-[#221f3c] uppercase hover:text-[#cf3140] cursor-pointer font-bold">View
+                                        More</strong>
+                                </div>
+                            </div>
+
+                            <!-- CARD-6 -->
+                            <div class="p-[50px] bg-[#ffffff]">
+                                <div class="flex flex-wrap align-center max-w-[750px]">
+                                    <img decoding="async" loading="lazy"
+                                        src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/themes/gokyo-fse/assets/images/service-9.png"
+                                        alt="" class="wp-image-371" style="border-radius:0px" width="50" height="50">
+                                </div>
+                                <div class="max-w-[750px] p-0 mt-[10px]">
+                                    <h3 class="nav hover:text-red-600 cursor-pointer mt-[10px] font-bold text-2xl">
+                                        Restructuring</h3>
+                                    <p
+                                        class="text-[#707376] font-sans-serif  mt-[16px] leading-[30px] text-lg font-normal">
+                                        We develop digital strategies, products and services appreciated by clients.</p>
+                                </div>
+                                <div class="mt-[15px]">
+                                    <strong
+                                        class=" text-[#221f3c] uppercase hover:text-[#cf3140] cursor-pointer font-bold">View
+                                        More</strong>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- 6-CARDS-END -->
+
+                    <div class="about-us pt-[100px] pb-[60px] pl-[30px] pr-[30px] box-border">
+                        <div class="container-100">
+                            <div class="flex flex-col items-center justify-center ">
+                                <p class="text-[#cf3140] font-bold text-xl">About Us</p>
+                                <h2 class="mt-2 text-4xl font-bold leading-[1.3] capitalize">Discover Our Features</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex justify-between items-center max-w-[1300px] box-border bg-[#221f3c] ml-4 mr-4 mb-4">
+                        <div class="dedicated-customer p-[40px] pl-14 box-border">
+                            <h2 class="text-[#ffffff] font-semibold leading-[1.3] text-[34px] max-w-[750px]">Dedicated
+                                Customer Success Team</h2>
+                            <p class="text-white mt-4 text-[16px] font-medium">I'm a subhead that goes with a story.</p>
+                            <ul class="mt-4 text-white text-[16px] font-medium leading-[1.7]">
+                                <li><i class="fa-solid fa-check font-bold text-lg text-[#2a3cb7]"></i><span
+                                        class="pl-2 font-semibold gap-2">Project strategy</span></li>
+                                <li><i class="fa-solid fa-check font-bold text-lg text-[#2a3cb7]"></i><span
+                                        class="pl-2 font-semibold gap-2">Accurate coding (development)</span></li>
+                                <li><i class="fa-solid fa-check font-bold text-lg text-[#2a3cb7]"></i><span
+                                        class="pl-2 font-semibold gap-2">Creative frontend</span></li>
+                                <li><i class="fa-solid fa-check font-bold text-lg text-[#2a3cb7]"></i><span
+                                        class="pl-2 font-semibold gap-2">User interface design (UI)</span></li>
+                                <li><i class="fa-solid fa-check font-bold text-lg text-[#2a3cb7]"></i><span
+                                        class="pl-2 font-semibold gap-2">Interaction design</span></li>
+                            </ul>
+                        </div>
+                        <img decoding="async"
+                            src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/themes/gokyo-fse/assets/images/about-info.jpg"
+                            alt="" class="wp-image-395 max-w-[750px]  h-[500px]  opacity-90 ml-[200px]">
+                    </div>
+
+                    <div class="mt-20 relative">
+                        <img class="wp-block-cover__image-background wp-image-308  filter brightness-50" alt=""
+                            src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/themes/gokyo-fse/assets/images/call-to-action.jpg"
+                            style="object-position: 61% 61%;" data-object-fit="cover" data-object-position="61% 61%">
+
+                        <h2
+                            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center text-4xl font-bold shadow-lg z-10">
+                            Agency Getting Excited From Our Solutions
+                        </h2>
+                        <p
+                            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-10 text-white text-center text-lg z-10">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tincidunt pulvinar neque, in
+                            scelerisque velit auctor ut. Aliquam nec volutpat erat.</p>
+
+                        <button
+                            class="absolute top-1/2 left-1/2 transform -translate-x-52 translate-y-40 bg-[#2a3cb7] py-3 px-8 hover:bg-[#cf3140]">
+                            <span class="text-white text-lg font-medium">Viwe Service</span><i
+                                class="fa-solid fa-arrow-right ml-4 mt-1 text-white "></i>
+                        </button>
+                        <button
+                            class="absolute top-1/2 left-1/2 transform translate-x-50 translate-y-40 bg-[#FFFFFF] py-3 px-8 hover:bg-[#2a3cb7]">
+                            <span class="text-black text-lg font-medium">Get A QUOTE</span><i
+                                class="fa-solid fa-arrow-right ml-4 mt-1 text-black "></i>
+                        </button>
+                    </div>
+                    <!-- IMAGE-END -->
+
+                    <div class="mt-20">
+                        <p class="flex justify-center text-[#cf3140] text-lg font-bold">EXPERT PEOPLE MATTER</p>
+                        <h2 class="flex justify-center text-3xl mt-2 font-bold">We Have Energetic Team For Organization
+                        </h2>
+                    </div>
+
+                    <div class=" grid grid-cols-3 bg-[#eee]">
+                        <div class="bg-[#ffffff]  w-[300px] h-[600px]">
+                            <img decoding="async" loading="lazy" width="300" height="300"
+                                src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/team4.jpg"
+                                alt="" class="wp-image-318"
+                                srcset="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/team4.jpg 740w, https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/team4-262x300.jpg 262w"
+                                sizes="(max-width: 740px) 100vw, 740px ">
+
+                            
+                                <h3 class="text-center mt-10 text-2xl hover:text-[#cf3140] cursor-pointer font-bold">John Smith</h3>
+                                <h4 class="text-center text-[#2a3cb7] mt-4 ">Designer</h4>
+                            
+                            <div class="flex justify-center items-center gap-4 mt-4 ">
+                                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M12 2C6.5 2 2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12c0-5.5-4.5-10-10-10z">
+                                    </path>
+                                </svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M21.8,8.001c0,0-0.195-1.378-0.795-1.985c-0.76-0.797-1.613-0.801-2.004-0.847c-2.799-0.202-6.997-0.202-6.997-0.202 h-0.009c0,0-4.198,0-6.997,0.202C4.608,5.216,3.756,5.22,2.995,6.016C2.395,6.623,2.2,8.001,2.2,8.001S2,9.62,2,11.238v1.517 c0,1.618,0.2,3.237,0.2,3.237s0.195,1.378,0.795,1.985c0.761,0.797,1.76,0.771,2.205,0.855c1.6,0.153,6.8,0.201,6.8,0.201 s4.203-0.006,7.001-0.209c0.391-0.047,1.243-0.051,2.004-0.847c0.6-0.607,0.795-1.985,0.795-1.985s0.2-1.618,0.2-3.237v-1.517 C22,9.62,21.8,8.001,21.8,8.001z M9.935,14.594l-0.001-5.62l5.404,2.82L9.935,14.594z">
+                                    </path>
+                                </svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M12,4.622c2.403,0,2.688,0.009,3.637,0.052c0.877,0.04,1.354,0.187,1.671,0.31c0.42,0.163,0.72,0.358,1.035,0.673 c0.315,0.315,0.51,0.615,0.673,1.035c0.123,0.317,0.27,0.794,0.31,1.671c0.043,0.949,0.052,1.234,0.052,3.637 s-0.009,2.688-0.052,3.637c-0.04,0.877-0.187,1.354-0.31,1.671c-0.163,0.42-0.358,0.72-0.673,1.035 c-0.315,0.315-0.615,0.51-1.035,0.673c-0.317,0.123-0.794,0.27-1.671,0.31c-0.949,0.043-1.233,0.052-3.637,0.052 s-2.688-0.009-3.637-0.052c-0.877-0.04-1.354-0.187-1.671-0.31c-0.42-0.163-0.72-0.358-1.035-0.673 c-0.315-0.315-0.51-0.615-0.673-1.035c-0.123-0.317-0.27-0.794-0.31-1.671C4.631,14.688,4.622,14.403,4.622,12 s0.009-2.688,0.052-3.637c0.04-0.877,0.187-1.354,0.31-1.671c0.163-0.42,0.358-0.72,0.673-1.035 c0.315-0.315,0.615-0.51,1.035-0.673c0.317-0.123,0.794-0.27,1.671-0.31C9.312,4.631,9.597,4.622,12,4.622 M12,3 C9.556,3,9.249,3.01,8.289,3.054C7.331,3.098,6.677,3.25,6.105,3.472C5.513,3.702,5.011,4.01,4.511,4.511 c-0.5,0.5-0.808,1.002-1.038,1.594C3.25,6.677,3.098,7.331,3.054,8.289C3.01,9.249,3,9.556,3,12c0,2.444,0.01,2.751,0.054,3.711 c0.044,0.958,0.196,1.612,0.418,2.185c0.23,0.592,0.538,1.094,1.038,1.594c0.5,0.5,1.002,0.808,1.594,1.038 c0.572,0.222,1.227,0.375,2.185,0.418C9.249,20.99,9.556,21,12,21s2.751-0.01,3.711-0.054c0.958-0.044,1.612-0.196,2.185-0.418 c0.592-0.23,1.094-0.538,1.594-1.038c0.5-0.5,0.808-1.002,1.038-1.594c0.222-0.572,0.375-1.227,0.418-2.185 C20.99,14.751,21,14.444,21,12s-0.01-2.751-0.054-3.711c-0.044-0.958-0.196-1.612-0.418-2.185c-0.23-0.592-0.538-1.094-1.038-1.594 c-0.5-0.5-1.002-0.808-1.594-1.038c-0.572-0.222-1.227-0.375-2.185-0.418C14.751,3.01,14.444,3,12,3L12,3z M12,7.378 c-2.552,0-4.622,2.069-4.622,4.622S9.448,16.622,12,16.622s4.622-2.069,4.622-4.622S14.552,7.378,12,7.378z M12,15 c-1.657,0-3-1.343-3-3s1.343-3,3-3s3,1.343,3,3S13.657,15,12,15z M16.804,6.116c-0.596,0-1.08,0.484-1.08,1.08 s0.484,1.08,1.08,1.08c0.596,0,1.08-0.484,1.08-1.08S17.401,6.116,16.804,6.116z">
+                                    </path>
+                                </svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M22.23,5.924c-0.736,0.326-1.527,0.547-2.357,0.646c0.847-0.508,1.498-1.312,1.804-2.27 c-0.793,0.47-1.671,0.812-2.606,0.996C18.324,4.498,17.257,4,16.077,4c-2.266,0-4.103,1.837-4.103,4.103 c0,0.322,0.036,0.635,0.106,0.935C8.67,8.867,5.647,7.234,3.623,4.751C3.27,5.357,3.067,6.062,3.067,6.814 c0,1.424,0.724,2.679,1.825,3.415c-0.673-0.021-1.305-0.206-1.859-0.513c0,0.017,0,0.034,0,0.052c0,1.988,1.414,3.647,3.292,4.023 c-0.344,0.094-0.707,0.144-1.081,0.144c-0.264,0-0.521-0.026-0.772-0.074c0.522,1.63,2.038,2.816,3.833,2.85 c-1.404,1.1-3.174,1.756-5.096,1.756c-0.331,0-0.658-0.019-0.979-0.057c1.816,1.164,3.973,1.843,6.29,1.843 c7.547,0,11.675-6.252,11.675-11.675c0-0.178-0.004-0.355-0.012-0.531C20.985,7.47,21.68,6.747,22.23,5.924z">
+                                    </path>
+                                </svg>
+                            </div>
+
+                        </div>
+                        <div class="bg-[#eee] w-[300px] h-[600px]">
+                            <img decoding="async" loading="lazy" width="300" height="300"
+                                src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/team4.jpg"
+                                alt="" class="wp-image-318"
+                                srcset="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/team4.jpg 740w, https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/team4-262x300.jpg 262w"
+                                sizes="(max-width: 740px) 100vw, 740px ">
+                            <h3>John Smith</h3>
+                            <h4>Designer</h4>
+                            <div class="flex">
+                                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M12 2C6.5 2 2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12c0-5.5-4.5-10-10-10z">
+                                    </path>
+                                </svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M21.8,8.001c0,0-0.195-1.378-0.795-1.985c-0.76-0.797-1.613-0.801-2.004-0.847c-2.799-0.202-6.997-0.202-6.997-0.202 h-0.009c0,0-4.198,0-6.997,0.202C4.608,5.216,3.756,5.22,2.995,6.016C2.395,6.623,2.2,8.001,2.2,8.001S2,9.62,2,11.238v1.517 c0,1.618,0.2,3.237,0.2,3.237s0.195,1.378,0.795,1.985c0.761,0.797,1.76,0.771,2.205,0.855c1.6,0.153,6.8,0.201,6.8,0.201 s4.203-0.006,7.001-0.209c0.391-0.047,1.243-0.051,2.004-0.847c0.6-0.607,0.795-1.985,0.795-1.985s0.2-1.618,0.2-3.237v-1.517 C22,9.62,21.8,8.001,21.8,8.001z M9.935,14.594l-0.001-5.62l5.404,2.82L9.935,14.594z">
+                                    </path>
+                                </svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M12,4.622c2.403,0,2.688,0.009,3.637,0.052c0.877,0.04,1.354,0.187,1.671,0.31c0.42,0.163,0.72,0.358,1.035,0.673 c0.315,0.315,0.51,0.615,0.673,1.035c0.123,0.317,0.27,0.794,0.31,1.671c0.043,0.949,0.052,1.234,0.052,3.637 s-0.009,2.688-0.052,3.637c-0.04,0.877-0.187,1.354-0.31,1.671c-0.163,0.42-0.358,0.72-0.673,1.035 c-0.315,0.315-0.615,0.51-1.035,0.673c-0.317,0.123-0.794,0.27-1.671,0.31c-0.949,0.043-1.233,0.052-3.637,0.052 s-2.688-0.009-3.637-0.052c-0.877-0.04-1.354-0.187-1.671-0.31c-0.42-0.163-0.72-0.358-1.035-0.673 c-0.315-0.315-0.51-0.615-0.673-1.035c-0.123-0.317-0.27-0.794-0.31-1.671C4.631,14.688,4.622,14.403,4.622,12 s0.009-2.688,0.052-3.637c0.04-0.877,0.187-1.354,0.31-1.671c0.163-0.42,0.358-0.72,0.673-1.035 c0.315-0.315,0.615-0.51,1.035-0.673c0.317-0.123,0.794-0.27,1.671-0.31C9.312,4.631,9.597,4.622,12,4.622 M12,3 C9.556,3,9.249,3.01,8.289,3.054C7.331,3.098,6.677,3.25,6.105,3.472C5.513,3.702,5.011,4.01,4.511,4.511 c-0.5,0.5-0.808,1.002-1.038,1.594C3.25,6.677,3.098,7.331,3.054,8.289C3.01,9.249,3,9.556,3,12c0,2.444,0.01,2.751,0.054,3.711 c0.044,0.958,0.196,1.612,0.418,2.185c0.23,0.592,0.538,1.094,1.038,1.594c0.5,0.5,1.002,0.808,1.594,1.038 c0.572,0.222,1.227,0.375,2.185,0.418C9.249,20.99,9.556,21,12,21s2.751-0.01,3.711-0.054c0.958-0.044,1.612-0.196,2.185-0.418 c0.592-0.23,1.094-0.538,1.594-1.038c0.5-0.5,0.808-1.002,1.038-1.594c0.222-0.572,0.375-1.227,0.418-2.185 C20.99,14.751,21,14.444,21,12s-0.01-2.751-0.054-3.711c-0.044-0.958-0.196-1.612-0.418-2.185c-0.23-0.592-0.538-1.094-1.038-1.594 c-0.5-0.5-1.002-0.808-1.594-1.038c-0.572-0.222-1.227-0.375-2.185-0.418C14.751,3.01,14.444,3,12,3L12,3z M12,7.378 c-2.552,0-4.622,2.069-4.622,4.622S9.448,16.622,12,16.622s4.622-2.069,4.622-4.622S14.552,7.378,12,7.378z M12,15 c-1.657,0-3-1.343-3-3s1.343-3,3-3s3,1.343,3,3S13.657,15,12,15z M16.804,6.116c-0.596,0-1.08,0.484-1.08,1.08 s0.484,1.08,1.08,1.08c0.596,0,1.08-0.484,1.08-1.08S17.401,6.116,16.804,6.116z">
+                                    </path>
+                                </svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M22.23,5.924c-0.736,0.326-1.527,0.547-2.357,0.646c0.847-0.508,1.498-1.312,1.804-2.27 c-0.793,0.47-1.671,0.812-2.606,0.996C18.324,4.498,17.257,4,16.077,4c-2.266,0-4.103,1.837-4.103,4.103 c0,0.322,0.036,0.635,0.106,0.935C8.67,8.867,5.647,7.234,3.623,4.751C3.27,5.357,3.067,6.062,3.067,6.814 c0,1.424,0.724,2.679,1.825,3.415c-0.673-0.021-1.305-0.206-1.859-0.513c0,0.017,0,0.034,0,0.052c0,1.988,1.414,3.647,3.292,4.023 c-0.344,0.094-0.707,0.144-1.081,0.144c-0.264,0-0.521-0.026-0.772-0.074c0.522,1.63,2.038,2.816,3.833,2.85 c-1.404,1.1-3.174,1.756-5.096,1.756c-0.331,0-0.658-0.019-0.979-0.057c1.816,1.164,3.973,1.843,6.29,1.843 c7.547,0,11.675-6.252,11.675-11.675c0-0.178-0.004-0.355-0.012-0.531C20.985,7.47,21.68,6.747,22.23,5.924z">
+                                    </path>
+                                </svg>
+                            </div>
+
+                        </div>
+                        <div class="bg-[#eee] w-[300px] h-[600px]">
+                            <img decoding="async" loading="lazy" width="300" height="300"
+                                src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/team4.jpg"
+                                alt="" class="wp-image-318"
+                                srcset="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/team4.jpg 740w, https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/team4-262x300.jpg 262w"
+                                sizes="(max-width: 740px) 100vw, 740px ">
+                            <h3>John Smith</h3>
+                            <h4>Designer</h4>
+                            <div class="flex">
+                                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M12 2C6.5 2 2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12c0-5.5-4.5-10-10-10z">
+                                    </path>
+                                </svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M21.8,8.001c0,0-0.195-1.378-0.795-1.985c-0.76-0.797-1.613-0.801-2.004-0.847c-2.799-0.202-6.997-0.202-6.997-0.202 h-0.009c0,0-4.198,0-6.997,0.202C4.608,5.216,3.756,5.22,2.995,6.016C2.395,6.623,2.2,8.001,2.2,8.001S2,9.62,2,11.238v1.517 c0,1.618,0.2,3.237,0.2,3.237s0.195,1.378,0.795,1.985c0.761,0.797,1.76,0.771,2.205,0.855c1.6,0.153,6.8,0.201,6.8,0.201 s4.203-0.006,7.001-0.209c0.391-0.047,1.243-0.051,2.004-0.847c0.6-0.607,0.795-1.985,0.795-1.985s0.2-1.618,0.2-3.237v-1.517 C22,9.62,21.8,8.001,21.8,8.001z M9.935,14.594l-0.001-5.62l5.404,2.82L9.935,14.594z">
+                                    </path>
+                                </svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M12,4.622c2.403,0,2.688,0.009,3.637,0.052c0.877,0.04,1.354,0.187,1.671,0.31c0.42,0.163,0.72,0.358,1.035,0.673 c0.315,0.315,0.51,0.615,0.673,1.035c0.123,0.317,0.27,0.794,0.31,1.671c0.043,0.949,0.052,1.234,0.052,3.637 s-0.009,2.688-0.052,3.637c-0.04,0.877-0.187,1.354-0.31,1.671c-0.163,0.42-0.358,0.72-0.673,1.035 c-0.315,0.315-0.615,0.51-1.035,0.673c-0.317,0.123-0.794,0.27-1.671,0.31c-0.949,0.043-1.233,0.052-3.637,0.052 s-2.688-0.009-3.637-0.052c-0.877-0.04-1.354-0.187-1.671-0.31c-0.42-0.163-0.72-0.358-1.035-0.673 c-0.315-0.315-0.51-0.615-0.673-1.035c-0.123-0.317-0.27-0.794-0.31-1.671C4.631,14.688,4.622,14.403,4.622,12 s0.009-2.688,0.052-3.637c0.04-0.877,0.187-1.354,0.31-1.671c0.163-0.42,0.358-0.72,0.673-1.035 c0.315-0.315,0.615-0.51,1.035-0.673c0.317-0.123,0.794-0.27,1.671-0.31C9.312,4.631,9.597,4.622,12,4.622 M12,3 C9.556,3,9.249,3.01,8.289,3.054C7.331,3.098,6.677,3.25,6.105,3.472C5.513,3.702,5.011,4.01,4.511,4.511 c-0.5,0.5-0.808,1.002-1.038,1.594C3.25,6.677,3.098,7.331,3.054,8.289C3.01,9.249,3,9.556,3,12c0,2.444,0.01,2.751,0.054,3.711 c0.044,0.958,0.196,1.612,0.418,2.185c0.23,0.592,0.538,1.094,1.038,1.594c0.5,0.5,1.002,0.808,1.594,1.038 c0.572,0.222,1.227,0.375,2.185,0.418C9.249,20.99,9.556,21,12,21s2.751-0.01,3.711-0.054c0.958-0.044,1.612-0.196,2.185-0.418 c0.592-0.23,1.094-0.538,1.594-1.038c0.5-0.5,0.808-1.002,1.038-1.594c0.222-0.572,0.375-1.227,0.418-2.185 C20.99,14.751,21,14.444,21,12s-0.01-2.751-0.054-3.711c-0.044-0.958-0.196-1.612-0.418-2.185c-0.23-0.592-0.538-1.094-1.038-1.594 c-0.5-0.5-1.002-0.808-1.594-1.038c-0.572-0.222-1.227-0.375-2.185-0.418C14.751,3.01,14.444,3,12,3L12,3z M12,7.378 c-2.552,0-4.622,2.069-4.622,4.622S9.448,16.622,12,16.622s4.622-2.069,4.622-4.622S14.552,7.378,12,7.378z M12,15 c-1.657,0-3-1.343-3-3s1.343-3,3-3s3,1.343,3,3S13.657,15,12,15z M16.804,6.116c-0.596,0-1.08,0.484-1.08,1.08 s0.484,1.08,1.08,1.08c0.596,0,1.08-0.484,1.08-1.08S17.401,6.116,16.804,6.116z">
+                                    </path>
+                                </svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M22.23,5.924c-0.736,0.326-1.527,0.547-2.357,0.646c0.847-0.508,1.498-1.312,1.804-2.27 c-0.793,0.47-1.671,0.812-2.606,0.996C18.324,4.498,17.257,4,16.077,4c-2.266,0-4.103,1.837-4.103,4.103 c0,0.322,0.036,0.635,0.106,0.935C8.67,8.867,5.647,7.234,3.623,4.751C3.27,5.357,3.067,6.062,3.067,6.814 c0,1.424,0.724,2.679,1.825,3.415c-0.673-0.021-1.305-0.206-1.859-0.513c0,0.017,0,0.034,0,0.052c0,1.988,1.414,3.647,3.292,4.023 c-0.344,0.094-0.707,0.144-1.081,0.144c-0.264,0-0.521-0.026-0.772-0.074c0.522,1.63,2.038,2.816,3.833,2.85 c-1.404,1.1-3.174,1.756-5.096,1.756c-0.331,0-0.658-0.019-0.979-0.057c1.816,1.164,3.973,1.843,6.29,1.843 c7.547,0,11.675-6.252,11.675-11.675c0-0.178-0.004-0.355-0.012-0.531C20.985,7.47,21.68,6.747,22.23,5.924z">
+                                    </path>
+                                </svg>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+
+</body>
+
+</html>
+
+<!-- style="object-position:38% 0%" data-object-fit="cover" data-object-position="38% 0%" -->
+<!-- <div class="main-img-container max-w-[1300px] box-border">
+    <div
+        class="img-container flex flex-nowrap relative overflow-hidden w-[100%] fade-in-up animated fade-in swiper-container-pointer-events swiper-container">
+        <div class="swipper-wrapper transform custom-transform transition-all duration-0 flex w-[100%] h-[100%] relative z-10 box-content">
+            <div class="swippe-wrapper-2 w-[907px] mr-[15px] w-[100%] h-[100%] relative transform fleex-shrink-0">
+                <div class="swipper-wrapper-child-1 p-0 rounded-0 bg-[#ffffff]">
+                    <div class="swipper-wrapper-child-2 pt-[50px] pr-[50px] pl-[50px] pb-[30px] min-h-[378px] flex relative justify-start items-end">
+                        <span class="absolute left-0 right-0 top-0 bottom-0 z-10 opacity-50"></span>
+                        <img decoding="async" loading="lazy" width="840" height="473" class="wp-block-cover__image-background wp-image-257" alt="" src="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-4-840x473-1.jpeg" data-object-fit="cover" srcset="https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-4-840x473-1.jpeg 840w, https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-4-840x473-1-300x169.jpeg 300w, https://demo.olivethemes.com/gokyo-fse-pro/wp-content/uploads/sites/20/2022/11/alright-img-4-840x473-1-768x432.jpeg 768w" sizes="(max-width: 840px) 100vw, 840px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

@@ -1,0 +1,89 @@
+.navbar {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    width: 100px; 
+    height: 50px; 
+    position: relative;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    font-family: cursive;
+
+}
+
+/* Bottom border */
+.nav-item::before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-color: #3498db;
+    bottom: 0;
+    left: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: none;
+}
+
+/* Right border */
+.nav-item::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background-color: #3498db;
+    top: 0;
+    right: 0;
+    transform-origin: bottom;
+    transform: scaleY(0);
+    transition: none;
+}
+
+/* Top border */
+.nav-item .border-top {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-color: #3498db;
+    top: 0;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: none;
+}
+
+/* Left border */
+.nav-item .border-left {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background-color: #3498db;
+    top: 0;
+    left: 0;
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: none;
+}
+
+/* Hover effect with individual timing for each side */
+.nav-item:hover::before {
+    transform: scaleX(1);
+    transition: transform 0.25s ease;
+}
+.nav-item:hover::after {
+    transform: scaleY(1);
+    transition: transform 0.25s ease 0.25s;
+}
+.nav-item:hover .border-top {
+    transform: scaleX(1);
+    transition: transform 0.25s ease 0.5s;
+}
+.nav-item:hover .border-left {
+    transform: scaleY(1);
+    transition: transform 0.25s ease 0.75s;
+}
